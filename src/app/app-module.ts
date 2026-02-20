@@ -1,19 +1,42 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { AdminLayout } from './layouts/admin-layout/admin-layout';
+import { Category } from './admin-components/category/category';
+import { provideHttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CreateCategory } from './admin-components/category/create-category/create-category';
+import { UpdateCategory } from './admin-components/category/update-category/update-category';
+import { ClayDesign } from './admin-components/clay-design/clay-design';
+import { CreateClayDesign } from './admin-components/clay-design/create-clay-design/create-clay-design';
+import { UpdateClayDesign } from './admin-components/clay-design/update-clay-design/update-clay-design';
+import { ClayDesignImage } from './admin-components/clay-design-image/clay-design-image';
+import { CreateClayDesignImage } from './admin-components/clay-design-image/create-clay-design-image/create-clay-design-image';
+import { UpdateClayDesignImage } from './admin-components/clay-design-image/update-clay-design-image/update-clay-design-image';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    AdminLayout,
+    Category,
+    CreateCategory,
+    UpdateCategory,
+    ClayDesign,
+    CreateClayDesign,
+    UpdateClayDesign,
+    ClayDesignImage,
+    CreateClayDesignImage,
+    UpdateClayDesignImage
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient()
   ],
   bootstrap: [App]
 })

@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Kil Tasarımları ({{ clayDesigns?.length || 0 }})</h3>
+    <a routerLink="create" class="btn btn-primary btn-sm">+ Yeni Ekle</a>
+  </div>
+
+  <div class="row">
+    @for (item of clayDesigns; track item.id) {
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h5 class="card-title fw-bold text-dark">{{ item.name }}</h5>
+              <span class="badge bg-light text-dark border fs-6">{{ item.price }} TL</span>
+            </div>
+
+            <p class="card-text text-muted small mb-3">
+              {{ item.description }}
+            </p>
+
+            <div class="bg-light p-2 rounded mb-3 small text-secondary">
+              <div><i class="bi bi-aspect-ratio me-1"></i> <strong>Boyut:</strong> {{ item.dimensions }}</div>
+              <div><i class="bi bi-palette me-1"></i> <strong>Renk:</strong> {{ item.colors }}</div>
+              <div><i class="bi bi-hammer me-1"></i> <strong>Malzeme:</strong> {{ item.materiel }}</div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              @if (item.stock > 0) {
+                <span class="text-success fw-bold small">
+                  ● Stokta Var ({{ item.stock }})
+                </span>
+              } @else {
+                <span class="text-danger fw-bold small">
+                  ● Tükendi
+                </span>
+              }
+
+              <div>
+                <a [routerLink]="['update/',item.id]" class="btn btn-link btn-sm text-decoration-none p-0 me-2">Düzenle</a>
+                <button class="btn btn-link btn-sm text-danger text-decoration-none p-0">Sil</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12 text-center py-5 text-muted">
+        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+        Henüz hiç veri yok.
+      </div>
+    }
+  </div>
+</div>

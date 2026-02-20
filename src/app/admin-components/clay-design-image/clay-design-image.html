@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <div class="row g-4">
+    <a routerLink="create" class="btn btn-outline-secondary btn-sm"> Yeni Görsel Ekle</a>
+    @for (item of clayImage; track item.imageId) {
+      <div class="col-md-4 col-sm-6">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="position-relative">
+            <img
+              [src]="item.thumbnailUrl || item.imageUrl"
+              class="card-img-top rounded-top"
+              [alt]="item.clayDesign.name"
+              style="height: 250px; object-fit: cover; width: 100%"
+            />
+
+            @if (item.isMain) {
+              <span class="badge bg-success position-absolute top-0 start-0 m-2">Ana Görsel</span>
+            }
+          </div>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary fw-bold">{{ item.clayDesign.name }}</h5>
+
+            <p class="card-text text-muted small flex-grow-1">
+              {{ item.clayDesign.description }}
+            </p>
+
+            <ul class="list-group list-group-flush mb-3 text-sm">
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span class="text-muted"><i class="bi bi-tag-fill me-1"></i> Fiyat</span>
+                <span class="fw-bold">{{
+                  item.clayDesign.price | currency: 'TRY' : 'symbol' : '1.2-2'
+                }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span class="text-muted"><i class="bi bi-box-seam me-1"></i> Stok</span>
+                <span>{{ item.clayDesign.stock }} Adet</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span class="text-muted"><i class="bi bi-rulers me-1"></i> Boyut</span>
+                <span>{{ item.clayDesign.dimensions }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span class="text-muted"><i class="bi bi-palette me-1"></i> Renk</span>
+                <span>{{ item.clayDesign.colors }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <a [routerLink]="['update/',item.id]" class="btn btn-outline-secondary btn-sm">Düzenle</a>
+          <a class="btn btn-outline-danger btn-sm" (click)="delete(item.id)"> Sil</a>
+
+          <div class="card-footer bg-light border-0 text-end">
+            <small class="text-muted">
+              Eklenme: {{ item.clayDesign.createdDate | date: 'dd.MM.yyyy' }}
+            </small>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12 text-center mt-5">
+        <div class="alert alert-warning" role="alert">
+          Henüz gösterilecek bir tasarım resmi bulunamadı.
+        </div>
+      </div>
+    }
+  </div>
+</div>

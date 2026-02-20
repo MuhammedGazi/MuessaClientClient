@@ -1,0 +1,13 @@
+<form #updateForm="ngForm" (ngSubmit)="update(category)">
+  <div class="mb-3">
+    <label>ID</label>
+    <input type="text" [value]="category.id" disabled class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label>Kategori Adı</label>
+    <input type="text" [(ngModel)]="category.name" name="name" class="form-control" />
+  </div>
+
+  <button type="submit" class="btn btn-success">Güncelle</button>
+</form>

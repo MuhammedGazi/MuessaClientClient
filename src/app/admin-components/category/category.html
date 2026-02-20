@@ -1,0 +1,29 @@
+<div class="table-responsive">
+  <a routerLink="create" class="btn btn-primary">Yeni Kategori ekle</a>
+
+  <table class="table table-primary">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Kategori Adı</th>
+        <th scope="col">oluşma tarihi</th>
+        <th scope="col">güncelleme tarihi</th>
+        <th scope="col">işlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of categories(); track $index) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.createdDate | date: 'dd.MM.yyyy HH:mm' }}</td>
+          <td>{{ item.updatedDate | date: 'dd.MM.yyyy HH:mm' }}</td>
+          <td>
+            <a (click)="delete(item.id)" class="btn btn-danger">Sil</a>
+            <a routerLink="update/{{item.id}}" class="btn btn-info ms-2">Güncelle</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

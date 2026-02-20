@@ -1,0 +1,78 @@
+<div class="container mt-4" style="max-width: 800px;">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Tasarımı Güncelle</h4>
+        </div>
+
+        <div class="card-body p-4">
+
+            @if (!clayDesign) {
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Veriler yükleniyor...</p>
+                </div>
+            }
+
+            @else {
+                <form (ngSubmit)="update()" #updateForm="ngForm">
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Ürün Adı</label>
+                            <input type="text" class="form-control" name="name"
+                                   [(ngModel)]="clayDesign.name" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Malzeme</label>
+                            <input type="text" class="form-control" name="materiel"
+                                   [(ngModel)]="clayDesign.materiel">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Fiyat (TL)</label>
+                            <input type="number" class="form-control" name="price"
+                                   [(ngModel)]="clayDesign.price" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Stok Adedi</label>
+                            <input type="number" class="form-control" name="stock"
+                                   [(ngModel)]="clayDesign.stock" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Boyutlar</label>
+                            <input type="text" class="form-control" name="dimensions"
+                                   placeholder="Örn: 20x10 cm"
+                                   [(ngModel)]="clayDesign.dimensions">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Renkler</label>
+                            <input type="text" class="form-control" name="colors"
+                                   placeholder="Örn: Mavi, Beyaz"
+                                   [(ngModel)]="clayDesign.colors">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Açıklama</label>
+                            <textarea class="form-control" rows="4" name="description"
+                                      [(ngModel)]="clayDesign.description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <button type="button" class="btn btn-secondary" routerLink="/list">İptal</button>
+                        <button type="submit" class="btn btn-primary px-4"
+                                [disabled]="!updateForm.valid">
+                            <i class="bi bi-save me-1"></i> Değişiklikleri Kaydet
+                        </button>
+                    </div>
+
+                </form>
+            }
+        </div>
+    </div>
+</div>
