@@ -1,0 +1,30 @@
+<div class="form-floating mb-3">
+  <form #form="ngForm" (ngSubmit)="create()">
+    <label for="formId1">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      [(ngModel)]="invitationType.name"
+      placeholder=""
+    />
+    <label for="formId1">description</label>
+    <input
+      type="text"
+      class="form-control"
+      name="description"
+      [(ngModel)]="invitationType.description"
+      placeholder=""
+    />
+    <label for="formId1">unitPrice</label>
+    <input
+      type="text"
+      class="form-control"
+      name="unitPrice"
+      [(ngModel)]="invitationType.unitPrice"
+      placeholder=""
+    />
+    <button type="submit" class="btn btn-primary">kaydet</button>
+  </form>
+</div>
+

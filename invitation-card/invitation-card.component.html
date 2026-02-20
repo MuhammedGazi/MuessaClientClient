@@ -1,0 +1,12 @@
+
+<div class="invitation-card">
+  <h2>{{ card.title }}</h2>
+  <p><strong>Type:</strong> {{ card.invitationType }}</p>
+  <p><strong>Date:</strong> {{ card.date | date }}</p>
+  <p><strong>Location:</strong> {{ card.location }}</p>
+  <p>{{ card.description }}</p>
+  <div class="actions">
+    <button (click)="onEdit.emit(card.id)">Edit</button>
+    <button (click)="onDelete.emit(card.id)">Delete</button>
+  </div>
+</div>

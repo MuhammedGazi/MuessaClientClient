@@ -14,6 +14,12 @@ import { UpdateClayDesign } from './admin-components/clay-design/update-clay-des
 import { ClayDesignImage } from './admin-components/clay-design-image/clay-design-image';
 import { CreateClayDesignImage } from './admin-components/clay-design-image/create-clay-design-image/create-clay-design-image';
 import { UpdateClayDesignImage } from './admin-components/clay-design-image/update-clay-design-image/update-clay-design-image';
+import { InvitationType } from './admin-components/invitation-type/invitation-type';
+import { UpdateInvitationType } from './admin-components/invitation-type/update-invitation-type/update-invitation-type';
+import { CreateInvitationType } from './admin-components/invitation-type/create-invitation-type/create-invitation-type';
+import { InvitationCard } from './admin-components/invitation-card/invitation-card';
+import { Createinvitationcard } from './admin-components/invitation-card/createinvitationcard/createinvitationcard';
+import { Updateinvitationcard } from './admin-components/invitation-card/updateinvitationcard/updateinvitationcard';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import { UpdateClayDesignImage } from './admin-components/clay-design-image/upda
     UpdateClayDesign,
     ClayDesignImage,
     CreateClayDesignImage,
-    UpdateClayDesignImage
+    UpdateClayDesignImage,
+    InvitationType,
+    CreateInvitationType,
+    UpdateInvitationType,
+    InvitationCard,
+    Createinvitationcard,
+    Updateinvitationcard
   ],
   imports: [
     BrowserModule,

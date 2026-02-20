@@ -1,0 +1,100 @@
+<div class="container mt-5 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white py-3">
+          <h4 class="mb-0 fw-bold"><i class="bi bi-plus-circle me-2"></i>Yeni Davetiye Kartı Oluştur</h4>
+        </div>
+        <div class="card-body p-4">
+          <form #createForm="ngForm" (ngSubmit)="create()">
+            <div class="row g-4">
+              <!-- Davetiye Türü -->
+              <div class="col-md-12">
+                <label class="form-label fw-bold text-secondary">Davetiye Türü Seçiniz</label>
+                <select class="form-select form-select-lg border-primary-subtle" name="invitationTypeId" [(ngModel)]="invitationCard.invitationTypeId" required>
+                  <option [ngValue]="undefined" disabled selected>Tür Seçiniz...</option>
+                  @for (type of invitationTypes; track type.id) {
+                    <option [value]="type.id">{{ type.name }}</option>
+                  }
+                </select>
+              </div>
+
+              <!-- Gelin & Damat Bilgileri -->
+              <div class="col-md-6 mt-4">
+                <div class="p-3 bg-light rounded shadow-sm h-100">
+                  <h5 class="text-primary border-bottom pb-2 mb-3">Gelin Bilgileri</h5>
+                  <div class="mb-3">
+                    <label class="form-label">Gelin Adı</label>
+                    <input type="text" class="form-control" name="brideName" [(ngModel)]="invitationCard.brideName" placeholder="Gelin adını giriniz" required>
+                  </div>
+                  <div class="mb-0">
+                    <label class="form-label">Gelin Ailesi (Anne - Baba)</label>
+                    <input type="text" class="form-control" name="brideParents" [(ngModel)]="invitationCard.brideParents" placeholder="Örn: Ayşe - Mehmet">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-4">
+                <div class="p-3 bg-light rounded shadow-sm h-100">
+                  <h5 class="text-primary border-bottom pb-2 mb-3">Damat Bilgileri</h5>
+                  <div class="mb-3">
+                    <label class="form-label">Damat Adı</label>
+                    <input type="text" class="form-control" name="groomName" [(ngModel)]="invitationCard.groomName" placeholder="Damat adını giriniz" required>
+                  </div>
+                  <div class="mb-0">
+                    <label class="form-label">Damat Ailesi (Anne - Baba)</label>
+                    <input type="text" class="form-control" name="groomParents" [(ngModel)]="invitationCard.groomParents" placeholder="Örn: Fatma - Ahmet">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Düğün Detayları -->
+              <div class="col-md-12 mt-4">
+                <h5 class="text-dark border-bottom pb-2 mb-3 fw-bold">Düğün / Tören Detayları</h5>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Düğün Tarihi & Saati</label>
+                    <input type="datetime-local" class="form-control" name="weddingDate" [(ngModel)]="invitationCard.weddingDate" required>
+                  </div>
+                  <div class="col-md-8 mb-3">
+                    <label class="form-label">Düğün Adresi</label>
+                    <input type="text" class="form-control" name="weddingAddress" [(ngModel)]="invitationCard.weddingAddress" placeholder="Törenin yapılacağı tam adres" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kına Detayları (Opsiyonel) -->
+              <div class="col-md-12 mt-2">
+                <h5 class="text-dark border-bottom pb-2 mb-3 fw-bold text-muted">Kına Gecesi (Opsiyonel)</h5>
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label text-muted">Kına Tarihi & Saati</label>
+                    <input type="datetime-local" class="form-control bg-light" name="hennaNightDate" [(ngModel)]="invitationCard.hennaNightDate">
+                  </div>
+                  <div class="col-md-8 mb-3">
+                    <label class="form-label text-muted">Kına Adresi</label>
+                    <input type="text" class="form-control bg-light" name="hennaNightAddress" [(ngModel)]="invitationCard.hennaNightAddress" placeholder="Kına gecesi adresi">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Davetiye Mesajı -->
+              <div class="col-md-12 mt-2">
+                <label class="form-label fw-bold">Davetiye Mesajı</label>
+                <textarea class="form-control" name="invitationMessage" [(ngModel)]="invitationCard.invitationMessage" rows="4" placeholder="Davetlilerinize iletmek istediğiniz özel not..."></textarea>
+              </div>
+
+              <!-- Butonlar -->
+              <div class="col-md-12 mt-5 text-end border-top pt-4">
+                <button type="button" class="btn btn-outline-secondary px-5 me-3" routerLink="/admin/invitationcard">İptal</button>
+                <button type="submit" class="btn btn-primary px-5 shadow-sm" [disabled]="createForm.invalid">
+                  <i class="bi bi-save me-2"></i>Kaydet ve Oluştur
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

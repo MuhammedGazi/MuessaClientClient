@@ -1,0 +1,30 @@
+<div class="table-responsive-sm">
+  <a routerLink="create" class="btn btn-primary">Yeni İnvitation Type ekle</a>
+  <br>
+  <br>
+  <table class="table table-secondary">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">UnitPrice</th>
+        <th scope="col">işlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of invitationType; track $index) {
+        <tr class="">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.unitPrice}}</td>
+          <td>
+            <a [routerLink]="['update/',item.id]" class="btn btn-secondary fa fa-pen"> Düzenle</a>
+            <a (click)="delete(item.id)" class="btn btn-primary fa fa-trash"> Sil</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
