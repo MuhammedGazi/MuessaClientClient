@@ -20,6 +20,18 @@ import { CreateInvitationType } from './admin-components/invitation-type/create-
 import { InvitationCard } from './admin-components/invitation-card/invitation-card';
 import { Createinvitationcard } from './admin-components/invitation-card/createinvitationcard/createinvitationcard';
 import { Updateinvitationcard } from './admin-components/invitation-card/updateinvitationcard/updateinvitationcard';
+import { InvitationTypeImage } from './admin-components/invitation-type-image/invitation-type-image';
+import { CreateinvitationTypeImage } from './admin-components/invitation-type-image/createinvitation-type-image/createinvitation-type-image';
+import { UpdateinvitationTypeImage } from './admin-components/invitation-type-image/updateinvitation-type-image/updateinvitation-type-image';
+import { PhotoPrints } from './admin-components/photo-prints/photo-prints';
+import { CreatephotoPrints } from './admin-components/photo-prints/createphoto-prints/createphoto-prints';
+import { UpdatephotoPrints } from './admin-components/photo-prints/updatephoto-prints/updatephoto-prints';
+import { PhotoPrintImage } from './admin-components/photo-print-image/photo-print-image';
+import { CreatephotoPrintImage } from './admin-components/photo-print-image/createphoto-print-image/createphoto-print-image';
+import { UpdatephotoPrintImage } from './admin-components/photo-print-image/updatephoto-print-image/updatephoto-print-image';
+import { Sidebar } from './layouts/admin-layout/components/sidebar/sidebar';
+import { Navbar } from './layouts/admin-layout/components/navbar/navbar';
+import { Footer } from './layouts/admin-layout/components/footer/footer';
 
 @NgModule({
   declarations: [
@@ -39,7 +51,19 @@ import { Updateinvitationcard } from './admin-components/invitation-card/updatei
     UpdateInvitationType,
     InvitationCard,
     Createinvitationcard,
-    Updateinvitationcard
+    Updateinvitationcard,
+    InvitationTypeImage,
+    CreateinvitationTypeImage,
+    UpdateinvitationTypeImage,
+    PhotoPrints,
+    CreatephotoPrints,
+    UpdatephotoPrints,
+    PhotoPrintImage,
+    CreatephotoPrintImage,
+    UpdatephotoPrintImage,
+    Sidebar,
+    Navbar,
+    Footer
   ],
   imports: [
     BrowserModule,

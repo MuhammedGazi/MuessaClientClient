@@ -1,0 +1,50 @@
+<div class="container mt-4 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-2 px-4">
+                    <h5 class="mb-0 text-dark fw-bold">
+                        <i class="fas fa-plus-circle text-success me-2"></i> Yeni Fotoğraf Baskısı Ekle
+                    </h5>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form #createForm="ngForm" (ngSubmit)="create()">
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label fw-bold text-muted small text-uppercase">Baskı Adı <span class="text-danger">*</span></label>
+                                <input type="text" id="name" name="name" class="form-control form-control-lg bg-light border-0" [(ngModel)]="photoPrint.name" required placeholder="Örn: Kuşe Kağıt Baskı">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="dimensions" class="form-label fw-bold text-muted small text-uppercase">Boyutlar <span class="text-danger">*</span></label>
+                                <input type="text" id="dimensions" name="dimensions" class="form-control form-control-lg bg-light border-0" [(ngModel)]="photoPrint.dimensions" required placeholder="Örn: 10x15 cm">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="unitPrice" class="form-label fw-bold text-muted small text-uppercase">Birim Fiyat (₺) <span class="text-danger">*</span></label>
+                            <input type="number" id="unitPrice" name="unitPrice" class="form-control form-control-lg bg-light border-0" [(ngModel)]="photoPrint.unitPrice" required min="0" step="0.01" placeholder="0.00">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-bold text-muted small text-uppercase">Açıklama</label>
+                            <textarea id="description" name="description" class="form-control form-control-lg bg-light border-0" rows="4" [(ngModel)]="photoPrint.description" placeholder="Baskı kalitesi veya kağıt türü hakkında detayları buraya yazabilirsiniz..."></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-5 pt-4 border-top">
+                            <a routerLink="/admin/photoprints" class="btn btn-link text-muted text-decoration-none me-3 fw-medium">
+                                İptal
+                            </a>
+                            <button type="submit" class="btn btn-success px-5 py-2 rounded-pill shadow-sm" [disabled]="createForm.invalid">
+                                <i class="fas fa-save me-1"></i> Kaydet
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

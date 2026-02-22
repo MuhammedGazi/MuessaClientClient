@@ -1,3 +1,6 @@
+import { UpdatephotoPrintImage } from './admin-components/photo-print-image/updatephoto-print-image/updatephoto-print-image';
+import { UpdateinvitationTypeImage } from './admin-components/invitation-type-image/updateinvitation-type-image/updateinvitation-type-image';
+import { CreateinvitationTypeImage } from './admin-components/invitation-type-image/createinvitation-type-image/createinvitation-type-image';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
@@ -16,6 +19,12 @@ import { CreateInvitationType } from './admin-components/invitation-type/create-
 import { InvitationCard } from './admin-components/invitation-card/invitation-card';
 import { Createinvitationcard } from './admin-components/invitation-card/createinvitationcard/createinvitationcard';
 import { Updateinvitationcard } from './admin-components/invitation-card/updateinvitationcard/updateinvitationcard';
+import { InvitationTypeImage } from './admin-components/invitation-type-image/invitation-type-image';
+import { PhotoPrints } from './admin-components/photo-prints/photo-prints';
+import { CreatephotoPrints } from './admin-components/photo-prints/createphoto-prints/createphoto-prints';
+import { UpdatephotoPrints } from './admin-components/photo-prints/updatephoto-prints/updatephoto-prints';
+import { PhotoPrintImage } from './admin-components/photo-print-image/photo-print-image';
+import { CreatephotoPrintImage } from './admin-components/photo-print-image/createphoto-print-image/createphoto-print-image';
 
 const routes: Routes = [
   //admin-layout routes
@@ -38,7 +47,19 @@ const routes: Routes = [
 
     {path:'invitationcard',component:InvitationCard},
     {path:'invitationcard/create',component:Createinvitationcard},
-    {path:'invitationcard/update/:id',component:Updateinvitationcard}
+    {path:'invitationcard/update/:id',component:Updateinvitationcard},
+
+    {path:'invitationtypeimage',component:InvitationTypeImage},
+    {path:'invitationtypeimage/create',component:CreateinvitationTypeImage},
+    {path:'invitationtypeimage/update/:id',component:UpdateinvitationTypeImage},
+
+    {path:'photoprints',component:PhotoPrints},
+    {path:'photoprints/create',component:CreatephotoPrints},
+    {path:'photoprints/update/:id',component:UpdatephotoPrints},
+
+    {path:'photoprintimage',component:PhotoPrintImage},
+    {path:'photoprintimage/create',component:CreatephotoPrintImage},
+    {path:'photoprintimage/update/:id',component:UpdatephotoPrintImage},
   ]}
 ];
 

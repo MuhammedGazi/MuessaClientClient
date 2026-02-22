@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ClayDesingImageService } from '../../../services/clay-desing-image-service';
 import { ClayDesignService } from '../../../services/clay-design-service';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class CreateClayDesignImage {
   private clayImageService = inject(ClayDesingImageService);
   private clayDesignService = inject(ClayDesignService);
   private router = inject(Router);
+  private cdr=inject(ChangeDetectorRef);
   selectedFile: File | null = null;
   clayImage: ClayDesignImageDto = new ClayDesignImageDto();
 
@@ -29,7 +30,10 @@ export class CreateClayDesignImage {
   }
   getClayDesigns() {
     this.clayDesignService.getAll().subscribe({
-      next: response => this.clayDesigns = response.data,
+      next: response =>{
+        this.clayDesigns = response.data;
+        this.cdr.detectChanges();
+      },
       error: err => console.error(err)
     });
   }

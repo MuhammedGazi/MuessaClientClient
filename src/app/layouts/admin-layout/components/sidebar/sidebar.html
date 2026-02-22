@@ -1,0 +1,84 @@
+<nav class="navbar align-items-start p-0 sidebar sidebar-dark accordion custom-sidebar">
+  <div class="container-fluid d-flex flex-column p-0">
+
+    <a class="navbar-brand d-flex justify-content-center align-items-center m-0 sidebar-brand py-4" routerLink="/admin">
+      <div class="sidebar-brand-icon rotate-n-15 brand-glow"><i class="fas fa-gem"></i></div>
+      <div class="mx-3 sidebar-brand-text fs-5 tracking-wide"><span>Muessa</span></div>
+    </a>
+
+    <hr class="sidebar-divider opacity-25 mx-3 my-3" />
+
+    <ul class="navbar-nav text-light w-100 mt-3" id="accordionSidebar">
+
+      <li class="nav-item">
+        <a class="nav-link py-3 custom-nav-link" routerLink="/admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fas fa-tachometer-alt fs-6 me-2"></i><span class="fw-bold">Dashboard</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider opacity-25 w-100 my-2" />
+
+      <div class="sidebar-heading text-uppercase text-light opacity-50 fw-bold text-xs mb-2 px-3 tracking-wide">Sistem</div>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/category" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-layer-group"></i></div><span>Kategoriler</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider opacity-25 w-100 my-3" />
+
+      <div class="sidebar-heading text-uppercase text-light opacity-50 fw-bold text-xs mb-2 px-3 tracking-wide">Kil Tasarım</div>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/claydesign" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-palette"></i></div><span>Tasarımlar</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/claydesignimage" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-images"></i></div><span>Resimler</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider opacity-25 w-100 my-3" />
+
+      <div class="sidebar-heading text-uppercase text-light opacity-50 fw-bold text-xs mb-2 px-3 tracking-wide">Davetiye</div>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/invitationtype" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-envelope-open-text"></i></div><span>Türler</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/invitationtypeimage" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-image"></i></div><span>Tür Resimleri</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/invitationcard" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-id-card-alt"></i></div><span>Kartlar</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider opacity-25 w-100 my-3" />
+
+      <div class="sidebar-heading text-uppercase text-light opacity-50 fw-bold text-xs mb-2 px-3 tracking-wide">Fotoğraf Baskı</div>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/photoprints" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-camera-retro"></i></div><span>Baskılar</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link custom-nav-link" routerLink="/admin/photoprintimage" routerLinkActive="active-link">
+          <div class="nav-icon-box"><i class="fas fa-photo-video"></i></div><span>Baskı Resimleri</span>
+        </a>
+      </li>
+
+    </ul>
+
+    <hr class="sidebar-divider opacity-25 d-none d-md-block w-100 mt-4" />
+
+    <div class="text-center d-none d-md-inline mb-4">
+      <button class="btn rounded-circle border-0 text-white opacity-50 hover-opacity-100" id="sidebarToggle" type="button" style="background-color: rgba(255,255,255,0.1);"></button>
+    </div>
+
+  </div>
+</nav>

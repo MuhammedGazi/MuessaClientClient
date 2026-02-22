@@ -1,13 +1,40 @@
-<form #updateForm="ngForm" (ngSubmit)="update(category)">
-  <div class="mb-3">
-    <label>ID</label>
-    <input type="text" [value]="category.id" disabled class="form-control" />
-  </div>
+<div class="container mt-4 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-2 px-4">
+                    <h5 class="mb-0 text-dark fw-bold">
+                        <i class="fas fa-edit text-info me-2"></i> Kategori Güncelle
+                    </h5>
+                </div>
 
-  <div class="mb-3">
-    <label>Kategori Adı</label>
-    <input type="text" [(ngModel)]="category.name" name="name" class="form-control" />
-  </div>
+                <div class="card-body p-4">
+                    <form #updateForm="ngForm" (ngSubmit)="update(category)">
 
-  <button type="submit" class="btn btn-success">Güncelle</button>
-</form>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="id" class="form-label fw-bold text-muted small text-uppercase">Kategori ID</label>
+                                <input type="text" id="id" [value]="category.id" disabled class="form-control bg-white text-muted fw-bold border-0 shadow-none px-0" />
+                            </div>
+
+                            <div class="col-md-9">
+                                <label for="name" class="form-label fw-bold text-muted small text-uppercase">Kategori Adı</label>
+                                <input type="text" id="name" name="name" class="form-control form-control-lg bg-light border-0"
+                                       [(ngModel)]="category.name" required />
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-5 pt-3 border-top">
+                            <a routerLink="/admin/category" class="btn btn-link text-muted text-decoration-none me-3">
+                                İptal
+                            </a>
+                            <button type="submit" class="btn btn-info text-white px-4 rounded-pill shadow-sm" [disabled]="updateForm.invalid">
+                                <i class="fas fa-sync-alt me-1"></i> Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

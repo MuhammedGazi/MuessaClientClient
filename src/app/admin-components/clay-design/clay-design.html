@@ -1,55 +1,67 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Kil Tasarımları ({{ clayDesigns?.length || 0 }})</h3>
-    <a routerLink="create" class="btn btn-primary btn-sm">+ Yeni Ekle</a>
-  </div>
+<div class="container mt-4 pb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+        <h4 class="mb-0 text-dark fw-bold">
+            <i class="fas fa-palette text-purple me-2"></i> Kil Tasarımları
+            <span class="text-muted fs-6 ms-1">({{ clayDesigns?.length || 0 }} Ürün)</span>
+        </h4>
+        <a routerLink="create" class="btn btn-purple shadow-sm rounded-pill px-3">
+            <i class="fas fa-plus me-1"></i> Yeni Tasarım Ekle
+        </a>
+    </div>
 
-  <div class="row">
-    @for (item of clayDesigns; track item.id) {
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm border-0">
+    <div class="row g-4">
+        @for (item of clayDesigns; track item.id) {
+            <div class="col-md-6 col-lg-4 col-xl-4">
+                <div class="card h-100 shadow-sm border-0 rounded-4 custom-hover-card">
+                    <div class="card-body p-4 d-flex flex-column">
 
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <h5 class="card-title fw-bold text-dark">{{ item.name }}</h5>
-              <span class="badge bg-light text-dark border fs-6">{{ item.price }} TL</span>
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold text-dark mb-0 pe-2">{{ item.name }}</h5>
+                            <span class="badge bg-purple-light text-purple border border-purple px-2 py-1 fs-6 rounded-pill">
+                                {{ item.price }} ₺
+                            </span>
+                        </div>
+
+                        <p class="card-text text-muted small mb-4 flex-grow-1">
+                            {{ item.description || 'Bu tasarım için açıklama girilmemiş.' }}
+                        </p>
+
+                        <div class="bg-light p-3 rounded-3 mb-4 small text-secondary border">
+                            <div class="mb-2"><i class="fas fa-ruler-combined me-2 text-purple opacity-75"></i> <strong class="text-dark">Boyut:</strong> {{ item.dimensions || 'Belirtilmedi' }}</div>
+                            <div class="mb-2"><i class="fas fa-fill-drip me-2 text-purple opacity-75"></i> <strong class="text-dark">Renk:</strong> {{ item.colors || 'Belirtilmedi' }}</div>
+                            <div><i class="fas fa-hammer me-2 text-purple opacity-75"></i> <strong class="text-dark">Malzeme:</strong> {{ item.materiel || 'Belirtilmedi' }}</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                            @if (item.stock > 0) {
+                                <span class="text-success fw-bold small d-flex align-items-center">
+                                    <span class="status-dot bg-success me-2"></span> Stokta ({{ item.stock }})
+                                </span>
+                            } @else {
+                                <span class="text-danger fw-bold small d-flex align-items-center">
+                                    <span class="status-dot bg-danger me-2"></span> Tükendi
+                                </span>
+                            }
+
+                            <div class="btn-group shadow-sm rounded-3">
+                                <a [routerLink]="['update', item.id]" class="btn btn-sm btn-light text-primary border" title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button class="btn btn-sm btn-light text-danger border" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-            <p class="card-text text-muted small mb-3">
-              {{ item.description }}
-            </p>
-
-            <div class="bg-light p-2 rounded mb-3 small text-secondary">
-              <div><i class="bi bi-aspect-ratio me-1"></i> <strong>Boyut:</strong> {{ item.dimensions }}</div>
-              <div><i class="bi bi-palette me-1"></i> <strong>Renk:</strong> {{ item.colors }}</div>
-              <div><i class="bi bi-hammer me-1"></i> <strong>Malzeme:</strong> {{ item.materiel }}</div>
+        } @empty {
+            <div class="col-12 text-center py-5 text-muted">
+                <div class="fs-1 mb-3 text-purple opacity-50"><i class="fas fa-box-open"></i></div>
+                <h5 class="fw-bold mb-1">Tasarım Bulunamadı</h5>
+                <p class="mb-0 small">Sisteme henüz hiçbir kil tasarımı eklenmemiş.</p>
             </div>
-
-            <div class="d-flex justify-content-between align-items-center mt-auto">
-              @if (item.stock > 0) {
-                <span class="text-success fw-bold small">
-                  ● Stokta Var ({{ item.stock }})
-                </span>
-              } @else {
-                <span class="text-danger fw-bold small">
-                  ● Tükendi
-                </span>
-              }
-
-              <div>
-                <a [routerLink]="['update/',item.id]" class="btn btn-link btn-sm text-decoration-none p-0 me-2">Düzenle</a>
-                <button class="btn btn-link btn-sm text-danger text-decoration-none p-0">Sil</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    } @empty {
-      <div class="col-12 text-center py-5 text-muted">
-        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
-        Henüz hiç veri yok.
-      </div>
-    }
-  </div>
+        }
+    </div>
 </div>

@@ -1,26 +1,65 @@
-<div class="mb-3">
-  <form #from="ngForm" (ngSubmit)="create()">
-  <label for="" class="form-label">Name</label>
-  <input type="text" class="form-control" name="name" [(ngModel)]="clayDesign.name" id="" aria-describedby="helpId" placeholder="" />
+<div class="container mt-4 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-2 px-4">
+                    <h5 class="mb-0 text-dark fw-bold">
+                        <i class="fas fa-plus-circle text-purple me-2"></i> Yeni Kil Tasarımı Ekle
+                    </h5>
+                </div>
 
-  <label for="" class="form-label">Description</label>
-  <input type="text" class="form-control" name="name" [(ngModel)]="clayDesign.description" id="" aria-describedby="helpId" placeholder="" />
+                <div class="card-body p-4 p-md-5">
+                    <form #createForm="ngForm" (ngSubmit)="create()">
 
-  <label for="" class="form-label">Price</label>
-  <input type="number" class="form-control" name="name" [(ngModel)]="clayDesign.price" id="" aria-describedby="helpId" placeholder="" />
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Tasarım Adı</label>
+                                <input type="text" class="form-control form-control-lg bg-light border-0" name="name" [(ngModel)]="clayDesign.name" required placeholder="Örn: Minimal Vazo">
+                            </div>
 
-  <label for="" class="form-label">Dimensions</label>
-  <input type="text" class="form-control" name="name" [(ngModel)]="clayDesign.dimensions" id="" aria-describedby="helpId" placeholder="" />
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Malzeme</label>
+                                <input type="text" class="form-control form-control-lg bg-light border-0" name="materiel" [(ngModel)]="clayDesign.materiel" placeholder="Örn: Polimer Kil">
+                            </div>
 
-  <label for="" class="form-label">Colors</label>
-  <input type="text" class="form-control" name="name" [(ngModel)]="clayDesign.colors" id="" aria-describedby="helpId" placeholder="" />
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Fiyat (₺)</label>
+                                <input type="number" class="form-control form-control-lg bg-light border-0" name="price" [(ngModel)]="clayDesign.price" required min="0" step="0.01" placeholder="0.00">
+                            </div>
 
-  <label for="" class="form-label">Materiel</label>
-  <input type="text" class="form-control" name="name" [(ngModel)]="clayDesign.materiel" id="" aria-describedby="helpId" placeholder="" />
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Başlangıç Stoğu</label>
+                                <input type="number" class="form-control form-control-lg bg-light border-0" name="stock" [(ngModel)]="clayDesign.stock" required min="0" placeholder="0">
+                            </div>
 
-  <label for="" class="form-label">Stock</label>
-  <input type="number" class="form-control" name="name" [(ngModel)]="clayDesign.stock" id="" aria-describedby="helpId" placeholder="" />
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Boyutlar</label>
+                                <input type="text" class="form-control form-control-lg bg-light border-0" name="dimensions" [(ngModel)]="clayDesign.dimensions" placeholder="Örn: 20x10 cm">
+                            </div>
 
-  <button type="submit" class="btn btn-primary">kaydet</button>
-</form>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Renkler</label>
+                                <input type="text" class="form-control form-control-lg bg-light border-0" name="colors" [(ngModel)]="clayDesign.colors" placeholder="Örn: Krem, Soft Mavi">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-muted small text-uppercase">Tasarım Açıklaması</label>
+                                <textarea class="form-control form-control-lg bg-light border-0" rows="4" name="description" [(ngModel)]="clayDesign.description" placeholder="Müşterilerin göreceği ürün detaylarını buraya yazın..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-5 pt-4 border-top">
+                            <a routerLink="/admin/claydesign" class="btn btn-link text-muted text-decoration-none me-3 fw-medium">
+                                İptal
+                            </a>
+                            <button type="submit" class="btn btn-purple px-5 py-2 rounded-pill shadow-sm" [disabled]="createForm.invalid">
+                                <i class="fas fa-save me-1"></i> Kaydet
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

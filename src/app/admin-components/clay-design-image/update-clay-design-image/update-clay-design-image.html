@@ -1,49 +1,59 @@
-<div class="container mt-4">
-  <div class="card shadow-sm border-0 p-4">
-    <h3 class="mb-4 text-primary"><i class="bi bi-pencil-square me-2"></i>Görseli Güncelle</h3>
+<div class="container mt-4 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-2 px-4">
+                    <h5 class="mb-0 text-dark fw-bold">
+                        <i class="fas fa-pencil-alt text-primary me-2"></i> Görseli Güncelle
+                    </h5>
+                </div>
 
-    <form #form="ngForm" (ngSubmit)="update()">
+                <div class="card-body p-4 p-md-5">
+                    <form #form="ngForm" (ngSubmit)="update()">
 
-      <input type="hidden" name="id" [(ngModel)]="clayImage.id">
-      <input type="hidden" name="imageId" [(ngModel)]="clayImage.imageId">
+                        <input type="hidden" name="id" [(ngModel)]="clayImage.id">
+                        <input type="hidden" name="imageId" [(ngModel)]="clayImage.imageId">
 
-      @if (clayImage.imageUrl) {
-        <div class="mb-4 text-center bg-light p-3 rounded">
-          <label class="form-label text-muted small d-block mb-2">Mevcut Görsel</label>
-          <img [src]="clayImage.thumbnailUrl || clayImage.imageUrl" alt="Tasarım Görseli" class="img-thumbnail shadow-sm" style="max-height: 200px; object-fit: contain;">
+                        @if (clayImage.imageUrl) {
+                            <div class="mb-4 text-center p-4 rounded-4" style="background-color: #f8fafc; border: 2px dashed #cbd5e1;">
+                                <span class="badge bg-secondary mb-3 px-3 py-2 rounded-pill">Sistemdeki Mevcut Görsel</span>
+                                <img [src]="clayImage.thumbnailUrl || clayImage.imageUrl" alt="Tasarım Görseli" class="img-fluid rounded shadow-sm" style="max-height: 220px; object-fit: contain; border: 4px solid white;">
+                            </div>
+                        }
+
+                        <div class="mb-4">
+                            <label for="imageInput" class="form-label fw-bold text-muted small text-uppercase">Yeni Görsel Seç (Değiştirmek istersen)</label>
+                            <input type="file" id="imageInput" class="form-control form-control-lg bg-light border-0" (change)="onFileSelected($event)" accept="image/*">
+                            <div class="form-text text-muted small mt-2"><i class="fas fa-info-circle text-primary opacity-50 me-1"></i> Görseli değiştirmek istemiyorsanız burayı boş bırakabilirsiniz.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="clayDesignId" class="form-label fw-bold text-muted small text-uppercase">Bağlı Olduğu Tasarım <span class="text-danger">*</span></label>
+                            <select id="clayDesignId" name="clayDesignId" [(ngModel)]="clayImage.clayDesignId" class="form-select form-select-lg bg-light border-0" required>
+                                <option [ngValue]="null" disabled>Lütfen bir tasarım seçin...</option>
+                                @for (item of clayDesigns; track item.id) {
+                                    <option [value]="item.id">{{ item.name }}</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-4 bg-light p-3 rounded-3 border-0 d-flex align-items-center">
+                            <div class="form-check form-switch mb-0">
+                                <input type="checkbox" id="isMainCheck" name="isMain" [(ngModel)]="clayImage.isMain" class="form-check-input fs-5 mt-0 shadow-none cursor-pointer">
+                                <label class="form-check-label ms-2 fw-bold text-dark cursor-pointer mt-1" for="isMainCheck">Bu tasarımın ana (vitrin) görseli olsun</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-5 pt-4 border-top">
+                            <a routerLink="/admin/claydesignimage" class="btn btn-link text-muted text-decoration-none me-3 fw-medium">İptal</a>
+                            <button type="submit" class="btn btn-primary px-5 py-2 rounded-pill shadow-sm" [disabled]="form.invalid">
+                                <i class="fas fa-sync-alt me-1"></i> Değişiklikleri Kaydet
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
-      }
-
-      <div class="mb-3">
-        <label for="imageInput" class="form-label fw-bold">Yeni Görsel Seç (Değiştirmek istersen)</label>
-        <input type="file" id="imageInput" class="form-control" (change)="onFileSelected($event)" accept="image/*">
-        <div class="form-text text-muted small">Mevcut görseli değiştirmek istemiyorsanız burayı boş bırakın.</div>
-      </div>
-
-      <div class="mb-3">
-        <label for="clayDesignId" class="form-label fw-bold">Bağlı Olduğu Tasarım</label>
-        <select id="clayDesignId" name="clayDesignId" [(ngModel)]="clayImage.clayDesignId" class="form-select" required>
-          <option [ngValue]="null" disabled>Lütfen bir tasarım seçin...</option>
-
-          @for (item of clayDesigns; track item.id) {
-            <option [value]="item.id">{{ item.name }}</option>
-          }
-        </select>
-      </div>
-
-      <div class="mb-4 form-check form-switch mt-3">
-        <input type="checkbox" id="isMainCheck" name="isMain" [(ngModel)]="clayImage.isMain" class="form-check-input" style="transform: scale(1.2); margin-top: 0.2rem;">
-        <label class="form-check-label ms-2 fw-bold" for="isMainCheck">Bu tasarımın ana görseli olsun</label>
-      </div>
-
-      <div class="d-flex justify-content-end gap-2 border-top pt-3 mt-4">
-        <button type="button" class="btn btn-outline-secondary" routerLink="/admin/claydesignimage">İptal</button>
-
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-          <i class="bi bi-save me-1"></i> Değişiklikleri Kaydet
-        </button>
-      </div>
-
-    </form>
-  </div>
+    </div>
 </div>

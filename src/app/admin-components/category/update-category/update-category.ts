@@ -1,5 +1,5 @@
 import { CategoryListModel } from './../../../models/categoryModels/categoryListModel';
-import { Component, inject, numberAttribute } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, numberAttribute } from '@angular/core';
 import { CategoryService } from '../../../services/category-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateCategoryModel } from '../../../models/categoryModels/updateCategoryModel';
@@ -13,6 +13,7 @@ import { NotExpr } from '@angular/compiler';
 })
 export class UpdateCategory {
   private categoryService = inject(CategoryService);
+  private cdr=inject(ChangeDetectorRef);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -30,7 +31,10 @@ export class UpdateCategory {
 
   getById(id: number) {
     this.categoryService.getById(id).subscribe({
-      next: (response) => (this.category = response.data),
+      next: (response) =>{
+        this.category = response.data;
+        this.cdr.detectChanges();
+      },
       error: (err) => console.log(err),
     });
   }
