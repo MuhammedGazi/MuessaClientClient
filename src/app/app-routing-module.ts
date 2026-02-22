@@ -25,8 +25,19 @@ import { CreatephotoPrints } from './admin-components/photo-prints/createphoto-p
 import { UpdatephotoPrints } from './admin-components/photo-prints/updatephoto-prints/updatephoto-prints';
 import { PhotoPrintImage } from './admin-components/photo-print-image/photo-print-image';
 import { CreatephotoPrintImage } from './admin-components/photo-print-image/createphoto-print-image/createphoto-print-image';
+import { UiLayout } from './layouts/ui-layout/ui-layout';
+import { HomeComponents } from './home-components/home-components';
+import { ClayDetail } from './home-components/clay-detail/clay-detail';
+import { InvitationDetail } from './home-components/invitation-detail/invitation-detail';
 
 const routes: Routes = [
+  //UI routes
+  {path:'',component:UiLayout,children:[
+    {path:'',component:HomeComponents},
+    {path:'clay-detail/:id',component:ClayDetail},
+    {path:'invitation-detail/:id',component:InvitationDetail}
+  ]},
+
   //admin-layout routes
   {path:'admin',component:AdminLayout,children:[
     {path:'category',component:Category},

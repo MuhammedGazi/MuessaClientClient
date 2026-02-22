@@ -1,0 +1,181 @@
+<main class="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-12 py-8 lg:py-12">
+
+  <nav class="flex flex-wrap items-center gap-2 mb-8 text-sm">
+    <a class="text-text-sub hover:text-primary transition-colors" routerLink="/">Ana Sayfa</a>
+    <span class="text-ochre/50">/</span>
+    <a class="text-text-sub hover:text-primary transition-colors" routerLink="/clay-collection">Toprak Koleksiyonu</a>
+    <span class="text-ochre/50">/</span>
+    <span class="text-text-main dark:text-cream font-medium">
+      {{ clayDesignDto?.name || 'Yükleniyor...' }}
+    </span>
+  </nav>
+
+  <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
+
+   <div class="flex-1 min-w-0">
+      <div class="flex flex-col-reverse lg:flex-row gap-4">
+
+        <div class="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-y-auto lg:h-[600px] scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] py-1 px-1 lg:py-0">
+
+          @for (img of clayDesignDto?.clayDesignImages; track img.id) {
+            <button
+              (click)="changeMainImage(img.imageUrl || img.thumbnailUrl)"
+              [class.ring-2]="selectedImage === (img.imageUrl || img.thumbnailUrl)"
+              [class.ring-primary]="selectedImage === (img.imageUrl || img.thumbnailUrl)"
+              [class.opacity-100]="selectedImage === (img.imageUrl || img.thumbnailUrl)"
+              class="relative shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-sm overflow-hidden border border-ochre/20 hover:ring-2 hover:ring-primary hover:opacity-100 transition-all opacity-70 cursor-pointer">
+              <img
+                [src]="img.thumbnailUrl || img.imageUrl"
+                [alt]="clayDesignDto.name"
+                class="w-full h-full object-cover"
+              />
+            </button>
+          }
+        </div>
+
+        <div class="flex-1 relative aspect-[4/5] lg:aspect-auto lg:h-[600px] rounded-sm overflow-hidden bg-surface-light border border-ochre/10 shadow-sm">
+          <img
+            [src]="selectedImage || 'assets/placeholder-clay.jpg'"
+            [alt]="clayDesignDto?.name"
+            class="w-full h-full object-cover transition-transform duration-700 cursor-crosshair"
+          />
+          <div class="absolute top-4 right-4">
+            <button class="flex items-center justify-center w-10 h-10 rounded-full bg-white/80 dark:bg-black/40 backdrop-blur hover:bg-primary hover:text-white text-text-sub shadow-sm transition-all">
+              <span class="material-symbols-outlined text-[20px]">favorite</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex-1 lg:max-w-lg flex flex-col pt-2">
+
+      <div class="mb-6 border-b border-ochre/10 pb-6">
+        <h1 class="text-text-main dark:text-white text-3xl md:text-4xl lg:text-[40px] font-serif font-bold leading-tight tracking-tight mb-4">
+          {{ clayDesignDto?.name || 'Tasarım Adı' }}
+        </h1>
+        <div class="flex items-center gap-4">
+          <span class="text-3xl font-bold text-primary">
+            {{ clayDesignDto?.price | currency:'TRY':'symbol':'1.2-2' }}
+          </span>
+          <div class="flex items-center gap-1 text-ochre text-sm bg-ochre/10 px-3 py-1 rounded-full">
+            <span class="material-symbols-outlined !text-lg fill-current">star</span>
+            <span class="font-bold text-text-main ml-1">5.0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mb-8">
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-surface-light border border-ochre/20 text-text-sub shadow-sm">
+          <span class="material-symbols-outlined !text-sm mr-2 text-secondary">category</span>
+          {{ clayDesignDto?.materiel || 'Kil' }}
+        </span>
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-surface-light border border-ochre/20 text-text-sub shadow-sm">
+          <span class="material-symbols-outlined !text-sm mr-2 text-secondary">straighten</span>
+          {{ clayDesignDto?.dimensions || 'Ölçü Belirtilmedi' }}
+        </span>
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-surface-light border border-ochre/20 text-text-sub shadow-sm">
+          <span class="material-symbols-outlined !text-sm mr-2 text-secondary">palette</span>
+          {{ clayDesignDto?.colors || 'Standart Renk' }}
+        </span>
+      </div>
+
+      <div class="prose dark:prose-invert mb-8 text-text-sub leading-relaxed text-lg font-light">
+        <p>
+          {{ clayDesignDto?.description || 'Bu eşsiz tasarım hakkında henüz bir açıklama girilmemiş. Ustalarımızın elinden çıkan her bir eser kendi ruhunu taşır.' }}
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-6 pt-6 border-t border-ochre/10">
+
+        @if (clayDesignDto?.stock > 0) {
+          <div class="flex items-center gap-2 text-secondary text-sm font-bold mb-2">
+            <span class="material-symbols-outlined !text-[18px]">check_circle</span>
+            Stokta {{ clayDesignDto?.stock }} adet mevcut
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex items-center h-14 border border-ochre/30 rounded-sm w-full sm:w-32 bg-surface-light shadow-sm">
+              <button class="w-10 h-full flex items-center justify-center text-text-sub hover:text-primary transition-colors">
+                <span class="material-symbols-outlined !text-lg">remove</span>
+              </button>
+              <input class="w-full text-center bg-transparent border-none p-0 text-text-main font-bold focus:ring-0" readonly type="text" value="1" />
+              <button class="w-10 h-full flex items-center justify-center text-text-sub hover:text-primary transition-colors">
+                <span class="material-symbols-outlined !text-lg">add</span>
+              </button>
+            </div>
+
+            <button class="flex-1 h-14 bg-text-main hover:bg-primary text-cream font-bold tracking-widest uppercase text-sm rounded-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-text-main/10 group">
+              <span class="material-symbols-outlined group-hover:animate-bounce">shopping_bag</span>
+              Sepete Ekle
+            </button>
+          </div>
+        } @else {
+          <div class="bg-red-50 text-red-800 border border-red-200 p-4 rounded-sm flex items-center gap-3 shadow-sm">
+            <span class="material-symbols-outlined">error</span>
+            <span class="font-bold">Bu tasarımın stokları tükenmiştir.</span>
+          </div>
+        }
+      </div>
+
+      <div class="mt-10 space-y-3">
+        <details class="group bg-surface-light rounded-sm border border-ochre/20 cursor-pointer shadow-sm">
+          <summary class="flex justify-between items-center font-bold uppercase tracking-widest text-xs list-none p-5 text-text-main">
+            <span>Bakım Talimatları</span>
+            <span class="transition group-open:rotate-180 text-primary">
+              <span class="material-symbols-outlined">expand_more</span>
+            </span>
+          </summary>
+          <div class="text-text-sub px-5 pb-5 text-sm italic">
+            <p>Yumuşak, kuru bir bezle temizleyin. El yapımı seramik dokusuna zarar verebileceği için sert kimyasallar ve aşındırıcı temizleyiciler kullanmaktan kaçının.</p>
+          </div>
+        </details>
+
+        <details class="group bg-surface-light rounded-sm border border-ochre/20 cursor-pointer shadow-sm">
+          <summary class="flex justify-between items-center font-bold uppercase tracking-widest text-xs list-none p-5 text-text-main">
+            <span>Kargo & İade</span>
+            <span class="transition group-open:rotate-180 text-primary">
+              <span class="material-symbols-outlined">expand_more</span>
+            </span>
+          </summary>
+          <div class="text-text-sub px-5 pb-5 text-sm italic">
+            <p>Tüm ürünlerimiz özel korumalı paketlerde kargolanır. Kırılma ve hasara karşı sigortalıdır. Teslimattan itibaren 14 gün içinde koşulsuz iade edebilirsiniz.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="mt-24 border-t border-ochre/20 pt-16">
+    <div class="flex justify-between items-end mb-10">
+      <div>
+        <h2 class="text-3xl font-serif font-bold text-text-main mb-2">İlginizi Çekebilecekler</h2>
+        <p class="text-text-sub italic">Toprak Koleksiyonu'ndan seçili diğer eserler.</p>
+      </div>
+      <a class="hidden sm:flex items-center gap-1 text-primary font-bold uppercase tracking-widest text-xs hover:underline" routerLink="/clay-collection">
+        Tümünü Gör
+        <span class="material-symbols-outlined !text-lg">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="group cursor-pointer">
+        <div class="relative aspect-[3/4] bg-surface-light border border-ochre/10 rounded-sm overflow-hidden mb-4">
+          <img alt="İlgili Ürün" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=400&auto=format&fit=crop" />
+        </div>
+        <h3 class="font-bold text-lg font-serif text-text-main group-hover:text-primary transition-colors">Wabi-Sabi Vazo</h3>
+        <p class="text-secondary font-bold text-sm mt-1">1,250 ₺</p>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative aspect-[3/4] bg-surface-light border border-ochre/10 rounded-sm overflow-hidden mb-4">
+          <img alt="İlgili Ürün" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=400&auto=format&fit=crop" />
+        </div>
+        <h3 class="font-bold text-lg font-serif text-text-main group-hover:text-primary transition-colors">Dekoratif Kase</h3>
+        <p class="text-secondary font-bold text-sm mt-1">850 ₺</p>
+      </div>
+    </div>
+  </section>
+
+</main>

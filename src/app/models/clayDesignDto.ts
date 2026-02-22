@@ -1,4 +1,5 @@
 import { BaseModel } from './baseModel/baseModel';
+import { ClayDesignImageDto } from './clayDesignImageDto';
 export class ClayDesignDto implements BaseModel{
   id: number;
   createdDate: string;
@@ -10,4 +11,5 @@ export class ClayDesignDto implements BaseModel{
   colors:string;
   materiel:string;
   stock:number;
+  clayDesignImages:ClayDesignImageDto[];
 }

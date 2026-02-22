@@ -1,0 +1,80 @@
+<section class="py-32 px-6 max-w-7xl mx-auto">
+  <div class="grid lg:grid-cols-4 gap-12 items-center">
+
+    <div class="lg:col-span-1">
+      <h2 class="text-5xl font-bold text-text-main dark:text-white mb-6">Toprak Koleksiyonu</h2>
+      <div class="text-text-sub dark:text-cream/70 space-y-4 text-sm leading-relaxed border-l-2 border-ochre/30 pl-6">
+        <p>
+          El yapımı seramiklerin kusurlu güzelliğini ve doğallığını kutlayan özel parçalar. Her bir eser, ustasının ruhunu taşır.
+        </p>
+        <div class="pt-4 border-t border-ochre/10">
+          <p class="font-bold text-primary mb-2 uppercase tracking-tighter">Nasıl Sipariş Verilir?</p>
+          <p class="italic">
+            Benzersiz tasarımınızı seçin, detayları inceleyin ve atölyemizde sizin için özel olarak fırınlanmasını sağlayın.
+          </p>
+        </div>
+      </div>
+    </div>
+
+<div class="lg:col-span-3 min-w-0 flex flex-col">
+
+      <div #slider class="flex overflow-x-auto gap-8 pb-4 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+
+        @for (item of clayDesignImages; track item.id) {
+
+          <div [routerLink]="['/clay-detail', item.clayDesign?.id]" class="group cursor-pointer min-w-[280px] md:min-w-[320px] snap-start">
+
+            <div class="relative overflow-hidden bg-surface-light dark:bg-surface-dark aspect-[3/4] mb-5 shadow-sm border border-ochre/5 rounded-sm">
+              <img
+                [src]="item.thumbnailUrl || item.imageUrl || 'assets/placeholder-clay.jpg'"
+                [alt]="item.clayDesign?.name"
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+              @if (item.clayDesign?.stock === 0) {
+                <div class="absolute top-4 right-4 bg-background-dark/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-widest px-3 py-1 rounded-full">
+                  Tükendi
+                </div>
+              }
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <h3 class="text-2xl font-bold text-text-main dark:text-white truncate" [title]="item.clayDesign?.name">
+                {{ item.clayDesign?.name }}
+              </h3>
+              <p class="text-xs uppercase tracking-widest text-secondary font-bold truncate">
+                {{ item.clayDesign?.materiel || 'El Yapımı Seramik' }}
+              </p>
+              <span class="text-lg font-serif mt-2 text-primary">
+                {{ item.clayDesign?.price | currency:'TRY':'symbol':'1.2-2' }}
+              </span>
+            </div>
+
+          </div>
+
+        } @empty {
+          <div class="w-full flex flex-col items-center justify-center py-20 border border-dashed border-ochre/30 rounded-lg text-text-sub">
+            <span class="material-symbols-outlined !text-[48px] mb-3 opacity-50">inventory_2</span>
+            <p class="font-serif italic text-lg">Koleksiyona henüz tasarım eklenmemiş.</p>
+          </div>
+        }
+
+      </div>
+
+      <div class="flex justify-end gap-3 mt-4 pr-2">
+        <button (click)="slider.scrollBy({left: -340, behavior: 'smooth'})"
+                class="bg-surface-light dark:bg-surface-dark border border-ochre/30 hover:bg-primary hover:text-white transition-colors rounded-full w-12 h-12 flex items-center justify-center text-primary cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined">arrow_left_alt</span>
+        </button>
+
+        <button (click)="slider.scrollBy({left: 340, behavior: 'smooth'})"
+                class="bg-surface-light dark:bg-surface-dark border border-ochre/30 hover:bg-primary hover:text-white transition-colors rounded-full w-12 h-12 flex items-center justify-center text-primary cursor-pointer shadow-sm">
+          <span class="material-symbols-outlined">arrow_right_alt</span>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>

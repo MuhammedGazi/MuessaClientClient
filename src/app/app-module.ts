@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
@@ -30,8 +31,20 @@ import { PhotoPrintImage } from './admin-components/photo-print-image/photo-prin
 import { CreatephotoPrintImage } from './admin-components/photo-print-image/createphoto-print-image/createphoto-print-image';
 import { UpdatephotoPrintImage } from './admin-components/photo-print-image/updatephoto-print-image/updatephoto-print-image';
 import { Sidebar } from './layouts/admin-layout/components/sidebar/sidebar';
-import { Navbar } from './layouts/admin-layout/components/navbar/navbar';
 import { Footer } from './layouts/admin-layout/components/footer/footer';
+import { HomeComponents } from './home-components/home-components';
+import { Uinavbar } from './layouts/ui-layout/uinavbar/uinavbar';
+import { Navbar } from './layouts/admin-layout/components/navbar/navbar';
+import { UiLayout } from './layouts/ui-layout/ui-layout';
+import { Uifooter } from './layouts/ui-layout/uifooter/uifooter';
+import { Banner } from './home-components/banner/banner';
+import { Clayshop } from './home-components/clayshop/clayshop';
+import { Invitationshop } from './home-components/invitationshop/invitationshop';
+import { Photoshop } from './home-components/photoshop/photoshop';
+import { ClayDetail } from './home-components/clay-detail/clay-detail';
+import { InvitationDetail } from './home-components/invitation-detail/invitation-detail';
+import { InvitationCustom } from './home-components/invitation-custom/invitation-custom';
+import { PhotoDetail } from './home-components/photo-detail/photo-detail';
 
 @NgModule({
   declarations: [
@@ -63,12 +76,25 @@ import { Footer } from './layouts/admin-layout/components/footer/footer';
     UpdatephotoPrintImage,
     Sidebar,
     Navbar,
-    Footer
+    Footer,
+    HomeComponents,
+    Uinavbar,
+    UiLayout,
+    Uifooter,
+    Banner,
+    Clayshop,
+    Invitationshop,
+    Photoshop,
+    ClayDetail,
+    InvitationDetail,
+    InvitationCustom,
+    PhotoDetail,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
