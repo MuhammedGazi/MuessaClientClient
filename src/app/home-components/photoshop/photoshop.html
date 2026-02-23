@@ -1,92 +1,114 @@
-  <section class="py-32 px-6 max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-      <div class="max-w-xl">
-        <h2 class="text-5xl font-bold text-text-main dark:text-white mb-6 italic font-serif">
-          The Lens Archive
-        </h2>
-        <p
-          class="text-text-sub dark:text-cream/70 text-lg leading-relaxed border-l-4 border-secondary pl-6"
-        >
-          A collection of serene landscape photography capturing the silent whispers of the natural
-          world. Printed on museum-grade hemp paper.
+<section class="py-24 px-6 md:px-12 bg-surface-light dark:bg-background-dark min-h-screen flex items-center justify-center overflow-hidden">
+
+  <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+    <div class="flex flex-col justify-center items-start space-y-8">
+
+      <span class="text-secondary font-bold tracking-[0.4em] uppercase text-[10px]">
+        Sanatsal Fotoğrafçılık
+      </span>
+
+      <h2 class="text-5xl md:text-6xl font-bold text-text-main dark:text-white leading-[1.1] tracking-tight">
+        Objektif <br>
+        <span class="italic font-serif font-normal text-ochre">Arşivi</span>
+      </h2>
+
+      <div class="space-y-6">
+        <p class="text-text-sub dark:text-cream/80 text-lg font-serif leading-relaxed italic border-l-2 border-ochre/30 pl-6">
+          "Doğanın sessiz fısıltılarını yakalayan huzur verici bir fotoğrafçılık koleksiyonu. Her bir kare, zamanın içinde donmuş bir şiir gibi."
+        </p>
+        <p class="text-text-sub dark:text-cream/70 text-base leading-relaxed">
+          Koleksiyonumuzdaki eserler, renklerin ve ışığın en doğal halini yansıtacak şekilde müze sınıfı özel arşiv kağıtlarına, yüksek çözünürlüklü pigment mürekkeplerle basılmaktadır.
         </p>
       </div>
-      <button
-        class="text-xs uppercase tracking-[0.3em] font-bold text-secondary border-b-2 border-secondary pb-2 hover:text-primary hover:border-primary transition-colors"
-      >
-        View All Visual Stories
+
+      <div class="flex flex-wrap gap-8 pt-4 border-t border-ochre/20 w-full">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary">camera_lens</span>
+          <span class="text-[10px] uppercase tracking-widest font-bold text-text-main">Premium Çekim</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary">format_paint</span>
+          <span class="text-[10px] uppercase tracking-widest font-bold text-text-main">Arşiv Kalitesi</span>
+        </div>
+      </div>
+
+      <button class="mt-4 border border-primary text-primary px-8 py-4 font-bold tracking-widest uppercase text-xs hover:bg-primary hover:text-white transition-all duration-300">
+        Tüm Koleksiyonu İncele
       </button>
+
     </div>
-    <div class="masonry-grid">
-      <div
-        class="masonry-item group relative overflow-hidden bg-surface-light border border-ochre/10"
-      >
-        <img
-          alt="Misty forest landscape"
-          class="w-full h-auto filter grayscale group-hover:grayscale-0 transition-all duration-700"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc_i9-R67CX93-F-Czuy3lKImMTFmthZztFO_lC-7v58sUeI6Nm6ZrB03ClxNEcc5w__nYRFHE7esQF3ZnDiC4GKxQacIgIT63fZUHgQke6YKXg4q9CEjjdhUgD4O9QSrPoBwcc2ezCZEBCR1M7i1StBH_cmqeXGtyV5R5jN1AR2AnsK1qkV2LaXO0F1MiemZZsE2wG3p9exUBZWEtXXNCVcboJvZxw0Wj8kj6m_OoqJE-54RAtkq4dvfNE1TIdlpeG3r3OrvOVZo"
-        />
-        <div
-          class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform"
-        >
-          <p class="font-serif italic text-xl">Whispering Valleys</p>
-        </div>
+
+    <div class="relative w-full max-w-lg mx-auto lg:ml-auto group">
+
+      <div class="absolute -inset-4 bg-ochre/10 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+      <div class="relative bg-white dark:bg-zinc-800 border-[12px] md:border-[16px] border-white dark:border-zinc-800 shadow-2xl aspect-[4/5] rounded-sm overflow-hidden">
+
+        <div class="absolute inset-0 bg-black"></div>
+
+        @for (img of photoPrintImages; track img.id; let i = $index) {
+          <div
+            class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            [class.opacity-100]="i === currentIndex"
+            [class.opacity-0]="i !== currentIndex"
+            [class.pointer-events-none]="i !== currentIndex"
+            [style.z-index]="i === currentIndex ? '10' : '0'">
+
+            <img
+              [src]="img.imageUrl || img.thumbnailUrl"
+              [alt]="img.photoPrint?.name || 'Sanat Eseri'"
+              class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-[1.5s] cursor-pointer"
+              [routerLink]="['/photo-detail', img.photoPrintId]"
+            />
+
+            <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent text-white pointer-events-none">
+              <p class="font-serif italic text-2xl drop-shadow-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                {{ img.photoPrint?.name || 'İsimsiz Eser' }}
+              </p>
+              <div class="h-[1px] w-8 bg-ochre mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+          </div>
+        }
+
+        @if (photoPrintImages.length === 0) {
+          <div class="absolute inset-0 flex items-center justify-center bg-zinc-100 dark:bg-zinc-900 text-text-sub flex-col gap-4 z-10">
+            <span class="material-symbols-outlined text-4xl">photo_library</span>
+            <p class="font-serif italic text-xl">Arşiv boş.</p>
+          </div>
+        }
+
       </div>
-      <div
-        class="masonry-item group relative overflow-hidden bg-surface-light border border-ochre/10"
-      >
-        <img
-          alt="Natural architectural forms"
-          class="w-full h-auto filter grayscale group-hover:grayscale-0 transition-all duration-700"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwLGPToWweZHQyLPE1WJbpCidRxTZh84yoS2it1DzV7i6GehgG1Ge8nowawnrxVoxVjQaSWVx8NGJOaOk52jccRQKScEvg9XsPylDzBgzBWV7i8P7sJBKyAmkqb4_OMgfgVydO1EkptcmrTIjgkLZAbyYI89bvMgoy2vgKhiF3Gepfr6RihP6JOzu3t2PYex4ATxsUGbA7eNfuj9Im-YQxZ3jgle31XdyRya76oHVZRlGjbWzO3HPb02YDCDg1x3G_7FUF5EM6R5U"
-        />
-        <div
-          class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform"
-        >
-          <p class="font-serif italic text-xl">Silent Geometry</p>
+
+      @if (photoPrintImages.length > 1) {
+        <div class="absolute -bottom-6 left-0 right-0 flex items-center justify-between px-4 z-20 pointer-events-none">
+          <button
+            (click)="prevSlide()"
+            class="pointer-events-auto w-12 h-12 bg-white dark:bg-zinc-800 shadow-xl text-text-main dark:text-white hover:text-primary rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 -translate-x-4 border border-ochre/10">
+            <span class="material-symbols-outlined">west</span>
+          </button>
+          <button
+            (click)="nextSlide()"
+            class="pointer-events-auto w-12 h-12 bg-white dark:bg-zinc-800 shadow-xl text-text-main dark:text-white hover:text-primary rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 translate-x-4 border border-ochre/10">
+            <span class="material-symbols-outlined">east</span>
+          </button>
         </div>
-      </div>
-      <div
-        class="masonry-item group relative overflow-hidden bg-surface-light border border-ochre/10"
-      >
-        <img
-          alt="Delicate flower photography"
-          class="w-full h-auto filter grayscale group-hover:grayscale-0 transition-all duration-700"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhqPorzl2-Sr578sCbiAHG32k82ECvIpWRa9Ze1op_jIEkDQGWwtPZQfJ4W4d1O-P4_u26wq4P6D4k91ke6bX0xYJNuk4n7SzLAaZUdvBbd9kQk0GO0HpWY2A2-1azbYVZdi1PT_N7tW2eomdghlDB1-ubqQ38nCZZiBcLF_r5egz1OqBZ-vbKh34LicJA5zW5mpnScBpaxTZrc_u5U4ASQCcPUs4Gb-yStfMwhosyb-Fq-91vm0Kg0wxxpLBfhWGglBPrAHtv_28"
-        />
-        <div
-          class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform"
-        >
-          <p class="font-serif italic text-xl">Botanical Study No. 4</p>
+
+        <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 flex gap-2">
+          @for (img of photoPrintImages; track img.id; let i = $index) {
+            <button
+              (click)="currentIndex = i"
+              class="h-1.5 rounded-full transition-all duration-500 cursor-pointer shadow-sm border border-ochre/20"
+              [class.w-6]="i === currentIndex"
+              [class.bg-primary]="i === currentIndex"
+              [class.w-1.5]="i !== currentIndex"
+              [class.bg-primary/20]="i !== currentIndex"
+              [class.hover:bg-primary/50]="i !== currentIndex">
+            </button>
+          }
         </div>
-      </div>
-      <div
-        class="masonry-item group relative overflow-hidden bg-surface-light border border-ochre/10"
-      >
-        <img
-          alt="Ocean waves in soft light"
-          class="w-full h-auto filter grayscale group-hover:grayscale-0 transition-all duration-700"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYkRj4o9HBUrhr2k5uvDuLFPeLQFUZ7zpG21E7hp1zk-OsjcyuHJtfuiUvmwTaW9YUMUe2RJBw1gHcTyFgSPqKGJ3Fhc4c0PMDgJnipLKqcmmOsmhtjx2Wkapq58xBWhE3vAtyst8xIMkB9SDwH90gBw0RImHKk_EP2NCZ6cIpTqEGhXh2QfKm69jLrwAWOIae0HOUwoylt0RZyeBTMv0RMxDiwqZRFonPjAghMJzX8Kb13VtEyeeGk6gsmJCKYhgSUalcrqdyPKA"
-        />
-        <div
-          class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform"
-        >
-          <p class="font-serif italic text-xl">Tidal Rhythm</p>
-        </div>
-      </div>
-      <div
-        class="masonry-item group relative overflow-hidden bg-surface-light border border-ochre/10"
-      >
-        <img
-          alt="Forest canopy view"
-          class="w-full h-auto filter grayscale group-hover:grayscale-0 transition-all duration-700"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxGJR2hajDX1P6mwTCVBTJohfrhWBHGVW4yu8cEmd41bIgdXW5ASNZ__MKh4txWycReJzNUiakuce8pBa_bKH_A0HCZPF6EVALhbRSE-uThu61RMs1xHPqYHmG4Kb1CnmF-ONmQVkFACrHYqQfoonU2lg64a75ZeZwIa1AfddiSxQQBpKrDxQy3famr03Wjao1OlhNaeyvjSmvla3NE-85bQkGbJE8QAfoLNTzbzzFkSLOcqB9XAFhrtV5ivgHIYJfjy_QrpoK3GU"
-        />
-        <div
-          class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white translate-y-full group-hover:translate-y-0 transition-transform"
-        >
-          <p class="font-serif italic text-xl">The Sky Above</p>
-        </div>
-      </div>
+      }
     </div>
-  </section>
+
+  </div>
+</section>

@@ -129,10 +129,10 @@
         </div>
 
         <div class="flex flex-col gap-4">
-          <button class="w-full py-4 px-6 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-primary/30 flex items-center justify-center gap-3 transition-all transform active:scale-[0.99]">
+          <a [routerLink]="['/invitation-custom', invitationType?.id]" class="w-full py-4 px-6 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold text-lg shadow-lg shadow-primary/30 flex items-center justify-center gap-3 transition-all transform active:scale-[0.99]">
             <span class="material-symbols-outlined">edit_note</span>
             Kişiselleştir & Sepete Ekle
-          </button>
+          </a>
 
           <div class="flex items-center justify-center gap-6 mt-2 text-slate-500 dark:text-slate-400">
             <div class="flex items-center gap-2 text-xs font-medium">
@@ -180,6 +180,28 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
       <div class="group cursor-pointer">
+        <div class="aspect-[4/5] rounded-lg overflow-hidden mb-3 bg-slate-100 dark:bg-white/5 relative">
+          <img alt="Related" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1544027419-45f8f8705ce6?q=80&w=400&auto=format&fit=crop" />
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <span class="bg-white text-primary px-3 py-1 rounded-full text-xs font-bold shadow-md">İncele</span>
+          </div>
+        </div>
+        <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Olive Branch</h4>
+        <p class="text-sm text-text-muted">42.00 ₺ / adet</p>
+      </div>
+
+      <div class="group cursor-pointer">
+        <div class="aspect-[4/5] rounded-lg overflow-hidden mb-3 bg-slate-100 dark:bg-white/5 relative">
+          <img alt="Related" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1621570169561-3fb3db31131c?q=80&w=400&auto=format&fit=crop" />
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <span class="bg-white text-primary px-3 py-1 rounded-full text-xs font-bold shadow-md">İncele</span>
+          </div>
+        </div>
+        <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Modern Gold</h4>
+        <p class="text-sm text-text-muted">55.00 ₺ / adet</p>
+      </div>
+
+            <div class="group cursor-pointer">
         <div class="aspect-[4/5] rounded-lg overflow-hidden mb-3 bg-slate-100 dark:bg-white/5 relative">
           <img alt="Related" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://images.unsplash.com/photo-1544027419-45f8f8705ce6?q=80&w=400&auto=format&fit=crop" />
           <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

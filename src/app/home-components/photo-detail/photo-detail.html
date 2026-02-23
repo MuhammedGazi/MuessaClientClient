@@ -1,317 +1,202 @@
-    <main class="flex-grow w-full flex justify-center py-8 px-6 lg:px-40">
-      <div class="w-full max-w-[1280px] flex flex-col gap-8">
-        <!-- Breadcrumbs -->
-        <div class="flex flex-wrap items-center gap-2 text-sm">
-          <a class="text-primary hover:underline font-medium" href="#">Home</a>
-          <span class="text-slate-400 dark:text-slate-600">/</span>
-          <a class="text-primary hover:underline font-medium" href="#"
-            >Prints</a
-          >
-          <span class="text-slate-400 dark:text-slate-600">/</span>
-          <span class="text-slate-900 dark:text-slate-100 font-semibold"
-            >Premium Photo Prints</span
-          >
+<main class="flex-grow w-full flex justify-center py-8 px-6 lg:px-40 bg-surface-light dark:bg-background-dark">
+  <div class="w-full max-w-[1280px] flex flex-col gap-8">
+
+    <div class="flex flex-wrap items-center gap-2 text-sm">
+      <a class="text-primary hover:underline font-medium" routerLink="/">Ana Sayfa</a>
+      <span class="text-slate-400 dark:text-slate-600">/</span>
+      <a class="text-primary hover:underline font-medium" routerLink="/photo-prints">Fotoğraf Baskı</a>
+      <span class="text-slate-400 dark:text-slate-600">/</span>
+      <span class="text-slate-900 dark:text-slate-100 font-semibold">{{ photoPrint?.name || 'Yükleniyor...' }}</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+      <div class="lg:col-span-7 flex flex-col gap-6">
+
+        <div class="relative group w-full aspect-[4/3] bg-white dark:bg-[#1a2e24] rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+          <img
+            [src]="selectedImage || 'assets/placeholder-photo.jpg'"
+            [alt]="photoPrint?.name"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          <!-- Left Column: Upload Area -->
-          <div class="lg:col-span-7 flex flex-col gap-6">
-            <div
-              class="relative group w-full aspect-[4/3] bg-white dark:bg-[#1a2e24] rounded-xl border-2 border-dashed border-primary/30 hover:border-primary transition-all duration-300 flex flex-col items-center justify-center p-8 text-center cursor-pointer"
+
+        <div class="flex gap-4 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          @for (img of photoPrint?.photoPrintImages; track img.id) {
+            <button
+              (click)="changeMainImage(img.imageUrl || img.thumbnailUrl)"
+              [class.border-primary]="selectedImage === (img.imageUrl || img.thumbnailUrl)"
+              [class.ring-2]="selectedImage === (img.imageUrl || img.thumbnailUrl)"
+              [class.ring-primary]="selectedImage === (img.imageUrl || img.thumbnailUrl)"
+              [class.border-transparent]="selectedImage !== (img.imageUrl || img.thumbnailUrl)"
+              class="flex-shrink-0 w-24 h-24 rounded-lg bg-slate-100 dark:bg-[#1a2e24] flex items-center justify-center border-2 hover:border-primary cursor-pointer transition-all p-0.5 overflow-hidden"
             >
-              <!-- Background decoration -->
-              <div
-                class="absolute inset-0 bg-primary/5 dark:bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"
-              ></div>
-              <!-- Content -->
-              <div class="relative z-10 flex flex-col items-center gap-4">
-                <div
-                  class="size-20 rounded-full bg-[#e7f3ed] dark:bg-[#1e3a2d] flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform duration-300"
-                >
-                  <span class="material-symbols-outlined !text-[40px]"
-                    >cloud_upload</span
-                  >
-                </div>
-                <h3
-                  class="text-xl font-bold text-slate-900 dark:text-slate-100"
-                >
-                  Click or Drag &amp; Drop to Upload
-                </h3>
-                <p class="text-slate-500 dark:text-slate-400 max-w-xs">
-                  Support for high-res JPG, PNG, and TIFF files. Max file size
-                  50MB.
-                </p>
-                <button
-                  class="mt-4 px-6 py-2.5 rounded-lg bg-white dark:bg-[#2a4538] border border-slate-200 dark:border-slate-700 font-semibold text-sm shadow-sm hover:shadow hover:border-primary/50 transition-all"
-                >
-                  Browse Files
-                </button>
-              </div>
+              <img
+                [src]="img.thumbnailUrl || img.imageUrl"
+                [alt]="photoPrint?.name"
+                class="w-full h-full object-cover rounded-md opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </button>
+          } @empty {
+            <div class="flex-shrink-0 w-24 h-24 rounded-lg bg-slate-100 dark:bg-[#1a2e24] flex items-center justify-center border border-dashed border-slate-300 dark:border-slate-600 text-slate-400">
+              <span class="material-symbols-outlined">image</span>
             </div>
-            <!-- Thumbnails / Features -->
-            <div class="flex gap-4 overflow-x-auto pb-2">
-              <div
-                class="flex-shrink-0 w-24 h-24 rounded-lg bg-slate-100 dark:bg-[#1a2e24] flex items-center justify-center border border-transparent hover:border-primary cursor-pointer transition-colors"
-              >
-                <img
-                  alt="Wall art mockup in living room"
-                  class="w-full h-full object-cover rounded-lg opacity-80 hover:opacity-100"
-                  data-alt="Wall art mockup in living room"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOeZaCbvEmGiJab5hXlsJ8gedtdnaH--UU-M_WFohplufnri866Ec0R8PyZQOBLpoNSRjK_kkq2arxjkQeDxLURu-HsF3Fqur7WIOmYZxF8Rokt-PLN6iHGC1jHEvCbz_B1tO8ZULOlYdpaL1pjo3HRQnSg8NTKBXaRRpbsdHqUPYM_LAIXW3aHP7f0EPibQLQpfwseaOyMafyNt1WoA_iu3eDQmy1FPW7w3zPpye-22Fd5U1KNxaMO2vYCr1eolNd7Qw_8qiBwk4"
-                />
-              </div>
-              <div
-                class="flex-shrink-0 w-24 h-24 rounded-lg bg-slate-100 dark:bg-[#1a2e24] flex items-center justify-center border border-transparent hover:border-primary cursor-pointer transition-colors"
-              >
-                <img
-                  alt="Close up texture of fine art paper"
-                  class="w-full h-full object-cover rounded-lg opacity-80 hover:opacity-100"
-                  data-alt="Close up texture of fine art paper"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCONcpvEyQ8kZ3T7DXFIMLLgZ1iEw0RYCEqQYW0uQ8IoXyD8q3ZftH1zqufmxfeRDx8FsMW3XA9t9Q8K5lk-NFZbzDZT8xJnS5y4R_fnJVWfAdr285DIdXIEz82yh5ePI2XH1TZlbEIXUSpZHGzUp4TJFKR4mNLVBk0S4wH9hw_Fsc00YZTB8o7B5tKnJYYw2FLG2o8aS6yWo-HgzR0X51wLVqk51jxfez2Is2z_T_dNh6_uI1BggoJ9RJIvjGOh14bzsf8kSAJM3I"
-                />
-              </div>
-              <div
-                class="flex-shrink-0 w-24 h-24 rounded-lg bg-slate-100 dark:bg-[#1a2e24] flex items-center justify-center border border-dashed border-slate-300 dark:border-slate-600 text-slate-400"
-              >
-                <span class="material-symbols-outlined">add</span>
-              </div>
-            </div>
-          </div>
-          <!-- Right Column: Product Configuration -->
-          <div
-            class="lg:col-span-5 flex flex-col gap-8 bg-white dark:bg-[#162920] p-6 lg:p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm"
-          >
-            <!-- Header -->
-            <div>
-              <h1
-                class="text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight mb-2"
-              >
-                Premium Photo Prints
-              </h1>
-              <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
-                Turn your digital memories into tangible art. Printed on
-                museum-grade archival paper designed to last a lifetime.
-              </p>
-            </div>
-            <hr class="border-slate-100 dark:border-slate-800" />
-            <!-- Configuration Form -->
-            <div class="flex flex-col gap-6">
-              <!-- Dimensions -->
-              <div class="flex flex-col gap-3">
-                <label
-                  class="text-sm font-bold text-slate-900 dark:text-slate-200 flex justify-between"
-                >
-                  <span>Select Size</span>
-                  <a
-                    class="text-primary text-xs font-normal hover:underline"
-                    href="#"
-                    >Size Guide</a
-                  >
-                </label>
-                <div class="grid grid-cols-3 gap-3">
-                  <button
-                    class="relative px-4 py-3 rounded-lg border-2 border-primary bg-primary/5 text-primary font-bold text-sm flex flex-col items-center gap-1 transition-all"
-                  >
-                    <span>10x15 cm</span>
-                    <span class="text-[10px] font-normal opacity-80"
-                      >Standard</span
-                    >
-                    <span
-                      class="absolute top-1 right-1 size-2 bg-primary rounded-full"
-                    ></span>
-                  </button>
-                  <button
-                    class="px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 font-medium text-sm flex flex-col items-center gap-1 transition-all bg-white dark:bg-[#1a2e24]"
-                  >
-                    <span>13x18 cm</span>
-                    <span class="text-[10px] font-normal opacity-60"
-                      >Medium</span
-                    >
-                  </button>
-                  <button
-                    class="px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 font-medium text-sm flex flex-col items-center gap-1 transition-all bg-white dark:bg-[#1a2e24]"
-                  >
-                    <span>21x30 cm</span>
-                    <span class="text-[10px] font-normal opacity-60"
-                      >A4 Large</span
-                    >
-                  </button>
-                </div>
-              </div>
-              <!-- Paper Type -->
-              <div class="flex flex-col gap-3">
-                <label
-                  class="text-sm font-bold text-slate-900 dark:text-slate-200"
-                  >Paper Finish</label
-                >
-                <div class="space-y-3">
-                  <label
-                    class="flex items-start gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 cursor-pointer bg-white dark:bg-[#1a2e24] transition-colors relative overflow-hidden group"
-                  >
-                    <input
-                      checked=""
-                      class="mt-1 size-4 text-primary border-slate-300 focus:ring-primary bg-transparent"
-                      name="paper"
-                      type="radio"
-                    />
-                    <div class="flex flex-col gap-1 z-10">
-                      <span
-                        class="text-sm font-bold text-slate-900 dark:text-slate-100"
-                        >Matte Finish</span
-                      >
-                      <span class="text-xs text-slate-500 dark:text-slate-400"
-                        >Non-reflective, smooth texture ideal for framing.</span
-                      >
-                    </div>
-                    <div
-                      class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    ></div>
-                  </label>
-                  <label
-                    class="flex items-start gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 cursor-pointer bg-white dark:bg-[#1a2e24] transition-colors relative overflow-hidden group"
-                  >
-                    <input
-                      class="mt-1 size-4 text-primary border-slate-300 focus:ring-primary bg-transparent"
-                      name="paper"
-                      type="radio"
-                    />
-                    <div class="flex flex-col gap-1 z-10">
-                      <span
-                        class="text-sm font-bold text-slate-900 dark:text-slate-100"
-                        >Glossy Finish</span
-                      >
-                      <span class="text-xs text-slate-500 dark:text-slate-400"
-                        >High-shine surface that makes colors pop.</span
-                      >
-                    </div>
-                    <div
-                      class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    ></div>
-                  </label>
-                </div>
-              </div>
-              <!-- Quantity -->
-              <div class="flex items-center justify-between py-2">
-                <label
-                  class="text-sm font-bold text-slate-900 dark:text-slate-200"
-                  >Quantity</label
-                >
-                <div
-                  class="flex items-center rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-[#1a2e24]"
-                >
-                  <button
-                    class="px-3 py-2 text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    <span class="material-symbols-outlined !text-[16px]"
-                      >remove</span
-                    >
-                  </button>
-                  <input
-                    class="w-12 text-center border-none p-0 text-sm font-semibold bg-transparent focus:ring-0"
-                    type="number"
-                    value="1"
-                  />
-                  <button
-                    class="px-3 py-2 text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    <span class="material-symbols-outlined !text-[16px]"
-                      >add</span
-                    >
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-4"
-            >
-              <div class="flex items-end justify-between">
-                <div class="flex flex-col">
-                  <span class="text-sm text-slate-500 dark:text-slate-400"
-                    >Total Price</span
-                  >
-                  <span
-                    class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight"
-                    >$12.00</span
-                  >
-                </div>
-                <div
-                  class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded"
-                >
-                  Free Shipping over $50
-                </div>
-              </div>
+          }
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col gap-8 bg-white dark:bg-[#162920] p-6 lg:p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+
+        <div>
+          <h1 class="text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight mb-3">
+            {{ photoPrint?.name || 'Premium Fotoğraf Baskı' }}
+          </h1>
+          <p class="text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+            {{ photoPrint?.description || 'Dijital anılarınızı dokunulabilir sanat eserlerine dönüştürün. Bir ömür boyu dayanacak müze sınıfı arşiv kağıdına basılmıştır.' }}
+          </p>
+        </div>
+        <hr class="border-slate-100 dark:border-slate-800" />
+
+        <div class="flex flex-col gap-6">
+
+          <div class="flex flex-col gap-3">
+            <label class="text-sm font-bold text-slate-900 dark:text-slate-200 flex justify-between">
+              <span>Boyut Seçin</span>
+              <a class="text-primary text-xs font-normal hover:underline" href="#">Boyut Rehberi</a>
+            </label>
+            <div class="grid grid-cols-3 gap-3">
               <button
-                class="w-full py-4 px-6 bg-primary hover:bg-[#14b363] text-white font-bold text-lg rounded-xl shadow-lg shadow-primary/30 transform active:scale-[0.99] transition-all flex items-center justify-center gap-3 group"
+                type="button"
+                (click)="selectedDimension = '10x15 cm'"
+                [ngClass]="selectedDimension === '10x15 cm' ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 bg-white dark:bg-[#1a2e24]'"
+                class="relative px-4 py-3 rounded-lg border-2 font-bold text-sm flex flex-col items-center gap-1 transition-all"
               >
-                <span
-                  class="material-symbols-outlined group-hover:animate-bounce"
-                  >cloud_upload</span
-                >
-                Upload &amp; Add to Cart
+                <span>10x15 cm</span>
+                <span class="text-[10px] font-normal opacity-80">Standart</span>
+                <span *ngIf="selectedDimension === '10x15 cm'" class="absolute top-1.5 right-1.5 size-2 bg-primary rounded-full"></span>
               </button>
-              <!-- Trust Badges -->
-              <div class="grid grid-cols-2 gap-4 pt-2">
-                <div
-                  class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary !text-[18px]"
-                    >verified_user</span
-                  >
-                  <span>Money-back Guarantee</span>
+
+              <button
+                type="button"
+                (click)="selectedDimension = '13x18 cm'"
+                [ngClass]="selectedDimension === '13x18 cm' ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 bg-white dark:bg-[#1a2e24]'"
+                class="relative px-4 py-3 rounded-lg border-2 font-bold text-sm flex flex-col items-center gap-1 transition-all"
+              >
+                <span>13x18 cm</span>
+                <span class="text-[10px] font-normal opacity-80">Orta</span>
+                <span *ngIf="selectedDimension === '13x18 cm'" class="absolute top-1.5 right-1.5 size-2 bg-primary rounded-full"></span>
+              </button>
+
+              <button
+                type="button"
+                (click)="selectedDimension = '21x30 cm'"
+                [ngClass]="selectedDimension === '21x30 cm' ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-300 bg-white dark:bg-[#1a2e24]'"
+                class="relative px-4 py-3 rounded-lg border-2 font-bold text-sm flex flex-col items-center gap-1 transition-all"
+              >
+                <span>21x30 cm</span>
+                <span class="text-[10px] font-normal opacity-80">A4 Büyük</span>
+                <span *ngIf="selectedDimension === '21x30 cm'" class="absolute top-1.5 right-1.5 size-2 bg-primary rounded-full"></span>
+              </button>
+            </div>
+            <p *ngIf="!selectedDimension" class="text-xs text-amber-500 font-medium mt-1">*Lütfen sipariş için bir boyut seçiniz.</p>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <label class="text-sm font-bold text-slate-900 dark:text-slate-200">Kağıt Yüzeyi</label>
+            <div class="space-y-3">
+              <label class="flex items-start gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 cursor-pointer bg-white dark:bg-[#1a2e24] transition-colors relative overflow-hidden group">
+                <input checked class="mt-1 size-4 text-primary border-slate-300 focus:ring-primary bg-transparent" name="paper" type="radio" />
+                <div class="flex flex-col gap-1 z-10">
+                  <span class="text-sm font-bold text-slate-900 dark:text-slate-100">Mat Yüzey</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">Yansıma yapmayan, çerçevelemeye uygun pürüzsüz doku.</span>
                 </div>
-                <div
-                  class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary !text-[18px]"
-                    >local_shipping</span
-                  >
-                  <span>2-Day Shipping</span>
+              </label>
+              <label class="flex items-start gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary/50 cursor-pointer bg-white dark:bg-[#1a2e24] transition-colors relative overflow-hidden group">
+                <input class="mt-1 size-4 text-primary border-slate-300 focus:ring-primary bg-transparent" name="paper" type="radio" />
+                <div class="flex flex-col gap-1 z-10">
+                  <span class="text-sm font-bold text-slate-900 dark:text-slate-100">Parlak Yüzey</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">Renkleri canlandıran, yüksek parlaklığa sahip yüzey.</span>
                 </div>
-              </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between py-2">
+            <label class="text-sm font-bold text-slate-900 dark:text-slate-200">Adet</label>
+            <div class="flex items-center rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-[#1a2e24]">
+              <button type="button" class="px-3 py-2 text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                <span class="material-symbols-outlined !text-[16px]">remove</span>
+              </button>
+              <input class="w-12 text-center border-none p-0 text-sm font-semibold bg-transparent focus:ring-0" type="number" value="1" />
+              <button type="button" class="px-3 py-2 text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                <span class="material-symbols-outlined !text-[16px]">add</span>
+              </button>
             </div>
           </div>
         </div>
-        <!-- Additional Info Section -->
-        <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12 border-t border-[#e7f3ed] dark:border-[#1e3a2d]"
-        >
-          <div class="flex flex-col items-center text-center gap-3 p-4">
-            <div
-              class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2"
-            >
-              <span class="material-symbols-outlined">print</span>
+
+        <div class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-4">
+          <div class="flex items-end justify-between">
+            <div class="flex flex-col">
+              <span class="text-sm text-slate-500 dark:text-slate-400">Toplam Fiyat</span>
+              <span class="text-3xl font-extrabold text-primary tracking-tight">
+                {{ photoPrint?.unitPrice | currency:'TRY':'symbol':'1.2-2' }}
+              </span>
             </div>
-            <h4 class="font-bold text-lg">High Definition Printing</h4>
-            <p class="text-sm text-slate-500 dark:text-slate-400">
-              We use 12-color ink technology for precise and vivid color
-              reproduction.
-            </p>
+            <div class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+              500 ₺ Üzeri Ücretsiz Kargo
+            </div>
           </div>
-          <div class="flex flex-col items-center text-center gap-3 p-4">
-            <div
-              class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2"
-            >
-              <span class="material-symbols-outlined">forest</span>
+
+          <button
+            (click)="create()"
+            [disabled]="!selectedDimension"
+            [class.opacity-50]="!selectedDimension"
+            [class.cursor-not-allowed]="!selectedDimension"
+            class="w-full py-4 px-6 bg-primary hover:bg-[#14b363] text-white font-bold text-lg rounded-xl shadow-lg shadow-primary/30 transform active:scale-[0.99] transition-all flex items-center justify-center gap-3 group"
+          >
+            <span class="material-symbols-outlined group-hover:animate-bounce">shopping_cart_checkout</span>
+            Siparişi Tamamla
+          </button>
+
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <span class="material-symbols-outlined text-primary !text-[18px]">verified_user</span>
+              <span>Kalite Garantisi</span>
             </div>
-            <h4 class="font-bold text-lg">Eco-Friendly Paper</h4>
-            <p class="text-sm text-slate-500 dark:text-slate-400">
-              Sourced from sustainable forests and produced with zero-waste
-              energy.
-            </p>
-          </div>
-          <div class="flex flex-col items-center text-center gap-3 p-4">
-            <div
-              class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2"
-            >
-              <span class="material-symbols-outlined">support_agent</span>
+            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <span class="material-symbols-outlined text-primary !text-[18px]">local_shipping</span>
+              <span>Hızlı Gönderim</span>
             </div>
-            <h4 class="font-bold text-lg">Expert Support</h4>
-            <p class="text-sm text-slate-500 dark:text-slate-400">
-              Our design team reviews every upload to ensure perfect print
-              quality.
-            </p>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 py-12 border-t border-[#e7f3ed] dark:border-[#1e3a2d] mt-4">
+      <div class="flex flex-col items-center text-center gap-3 p-4">
+        <div class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+          <span class="material-symbols-outlined">print</span>
+        </div>
+        <h4 class="font-bold text-lg text-slate-900 dark:text-white">Yüksek Çözünürlüklü Baskı</h4>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Hassas ve canlı renk üretimi için 12 renkli mürekkep teknolojisi kullanıyoruz.</p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-3 p-4">
+        <div class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+          <span class="material-symbols-outlined">forest</span>
+        </div>
+        <h4 class="font-bold text-lg text-slate-900 dark:text-white">Çevre Dostu Kağıt</h4>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Sürdürülebilir ormanlardan elde edilir ve sıfır atık enerjisiyle üretilir.</p>
+      </div>
+      <div class="flex flex-col items-center text-center gap-3 p-4">
+        <div class="size-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
+          <span class="material-symbols-outlined">support_agent</span>
+        </div>
+        <h4 class="font-bold text-lg text-slate-900 dark:text-white">Uzman Desteği</h4>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Mükemmel baskı kalitesi sağlamak için tasarım ekibimiz siparişinizi inceler.</p>
+      </div>
+    </div>
+
+  </div>
+</main>

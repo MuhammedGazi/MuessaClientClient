@@ -29,13 +29,17 @@ import { UiLayout } from './layouts/ui-layout/ui-layout';
 import { HomeComponents } from './home-components/home-components';
 import { ClayDetail } from './home-components/clay-detail/clay-detail';
 import { InvitationDetail } from './home-components/invitation-detail/invitation-detail';
+import { InvitationCustom } from './home-components/invitation-custom/invitation-custom';
+import { PhotoDetail } from './home-components/photo-detail/photo-detail';
 
 const routes: Routes = [
   //UI routes
   {path:'',component:UiLayout,children:[
     {path:'',component:HomeComponents},
     {path:'clay-detail/:id',component:ClayDetail},
-    {path:'invitation-detail/:id',component:InvitationDetail}
+    {path:'invitation-detail/:id',component:InvitationDetail},
+    {path:'invitation-custom/:id',component:InvitationCustom},
+    {path:'photo-detail/:id',component:PhotoDetail},
   ]},
 
   //admin-layout routes
