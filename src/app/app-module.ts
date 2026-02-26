@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { Category } from './admin-components/category/category';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CreateCategory } from './admin-components/category/create-category/create-category';
 import { UpdateCategory } from './admin-components/category/update-category/update-category';
@@ -45,6 +45,10 @@ import { ClayDetail } from './home-components/clay-detail/clay-detail';
 import { InvitationDetail } from './home-components/invitation-detail/invitation-detail';
 import { InvitationCustom } from './home-components/invitation-custom/invitation-custom';
 import { PhotoDetail } from './home-components/photo-detail/photo-detail';
+import { Createbanner } from './admin-components/banner/createbanner/createbanner';
+import { Updatebanner } from './admin-components/banner/updatebanner/updatebanner';
+import { TokenInterceptor } from './_interceptors/token-interceptor';
+import { Login } from './home-components/login/login';
 
 @NgModule({
   declarations: [
@@ -89,6 +93,9 @@ import { PhotoDetail } from './home-components/photo-detail/photo-detail';
     InvitationDetail,
     InvitationCustom,
     PhotoDetail,
+    Createbanner,
+    Updatebanner,
+    Login,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +105,8 @@ import { PhotoDetail } from './home-components/photo-detail/photo-detail';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
+    provideHttpClient(),
+    {provide: HTTP_INTERCEPTORS,useClass: TokenInterceptor, multi: true}
   ],
   bootstrap: [App]
 })

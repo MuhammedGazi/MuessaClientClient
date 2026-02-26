@@ -1,7 +1,7 @@
 import { UpdatephotoPrintImage } from './admin-components/photo-print-image/updatephoto-print-image/updatephoto-print-image';
 import { UpdateinvitationTypeImage } from './admin-components/invitation-type-image/updateinvitation-type-image/updateinvitation-type-image';
 import { CreateinvitationTypeImage } from './admin-components/invitation-type-image/createinvitation-type-image/createinvitation-type-image';
-import { NgModule, Component } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { Category } from './admin-components/category/category';
@@ -31,11 +31,17 @@ import { ClayDetail } from './home-components/clay-detail/clay-detail';
 import { InvitationDetail } from './home-components/invitation-detail/invitation-detail';
 import { InvitationCustom } from './home-components/invitation-custom/invitation-custom';
 import { PhotoDetail } from './home-components/photo-detail/photo-detail';
+import { Banner } from './admin-components/banner/banner';
+import { Createbanner } from './admin-components/banner/createbanner/createbanner';
+import { Updatebanner } from './admin-components/banner/updatebanner/updatebanner';
+import { AuthGuard } from './_guards/auth-guard';
+import { Login } from './home-components/login/login';
 
 const routes: Routes = [
   //UI routes
   {path:'',component:UiLayout,children:[
     {path:'',component:HomeComponents},
+     {path:'login',component:Login},
     {path:'clay-detail/:id',component:ClayDetail},
     {path:'invitation-detail/:id',component:InvitationDetail},
     {path:'invitation-custom/:id',component:InvitationCustom},
@@ -43,7 +49,7 @@ const routes: Routes = [
   ]},
 
   //admin-layout routes
-  {path:'admin',component:AdminLayout,children:[
+  {path:'admin',component:AdminLayout,canActivate:[AuthGuard],children:[
     {path:'category',component:Category},
     {path:'category/create',component:CreateCategory},
     {path:'category/update/:id',component:UpdateCategory},
@@ -75,6 +81,10 @@ const routes: Routes = [
     {path:'photoprintimage',component:PhotoPrintImage},
     {path:'photoprintimage/create',component:CreatephotoPrintImage},
     {path:'photoprintimage/update/:id',component:UpdatephotoPrintImage},
+
+    {path:'banner',component:Banner},
+    {path:'banner/create',component:Createbanner},
+    {path:'banner/update/:id',component:Updatebanner},
   ]}
 ];
 
